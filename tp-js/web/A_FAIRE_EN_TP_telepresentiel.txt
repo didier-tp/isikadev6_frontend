@@ -20,7 +20,10 @@ en version jasmine et "mocha+chai" et en version (web/cdn).
 TP3
 ===
 Tester le concept de prototype javascript (page 41 du pdf doc/javascript.pdf)
-sur les Devises du fichier js/dom_crud_devise
+sur les Devises du fichier js/dom_crud_devise.
+idée1 : ajouter un suffix prototype du genre " pour 1 euro"
+et une méthode prototype changeAvecSuffixe qui sera appelée
+dans addDeviseRow() pour remplir la troisième colonne du tableau
 
 TP4
 ===
