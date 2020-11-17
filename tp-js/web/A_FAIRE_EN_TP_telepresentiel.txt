@@ -1,3 +1,5 @@
+TP1
+====
 ouvrir une première fois dom_crud_devise.html dans un navigateur 
 pour voir le comportement
 ------- 
@@ -9,3 +11,20 @@ et
 ----
 ré-ouvrir dom_crud_devise.html dans un navigateur 
 pour vérifier le meilleur comportement
+
+TP2
+===
+Analyser et faire fonctionner les exemples de tests unitaires
+en version jasmine et "mocha+chai" et en version (web/cdn).
+
+TP3
+===
+Tester le concept de prototype javascript (page 41 du pdf doc/javascript.pdf)
+sur les Devises du fichier js/dom_crud_devise
+
+TP4
+===
+utiliser lib/jquery-3.5.1.js
+pour programmer une nouvelle version de (js/calculatrice.js et calculatrice.html)
+ou bien de (js/commande.js et commande.html)
+en se basant sur jquery
