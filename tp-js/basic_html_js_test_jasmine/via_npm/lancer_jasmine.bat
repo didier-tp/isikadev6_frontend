@@ -1,0 +1,1 @@
+jasmine > jasmine_report.txt

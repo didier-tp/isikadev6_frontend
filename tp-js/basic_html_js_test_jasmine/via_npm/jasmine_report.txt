@@ -1,0 +1,10 @@
+Randomized with seed 63743
+Started
+initialisation : new ... or ...
+.initialisation : new ... or ...
+.
+
+
+2 specs, 0 failures
+Finished in 0.011 seconds
+Randomized with seed 63743 (jasmine --random=true --seed=63743)

@@ -1,0 +1,1 @@
+mocha > mocha_report.txt

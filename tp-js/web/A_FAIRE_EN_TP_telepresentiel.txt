@@ -1,0 +1,11 @@
+ouvrir une première fois dom_crud_devise.html dans un navigateur 
+pour voir le comportement
+------- 
+compléter dans le fichier dom_crud_devise.js
+les parties encadrées par 
+//************ A FAIRE EN TP:
+et
+//***************************
+----
+ré-ouvrir dom_crud_devise.html dans un navigateur 
+pour vérifier le meilleur comportement
