@@ -5,16 +5,6 @@ function Devise(code,nom,change){
 	this.change=change?change:"";
 }
 
-//.prototype a une signification proche de "static default"
-Devise.prototype.suffix=" pour 1 euro";
-Devise.prototype.changeAvecSuffixe = function(){
-	return this.change + this.suffix;
-};
-
-/* utilisation:
-newRow.insertCell(2).innerHTML = devise.changeAvecSuffixe();
-dans derniere ligne de addDeviseRow()
-*/
 
 //variables globales:
 var zoneBodyTableau; // ref sur elt DOM <tbody id="bodyTableau">
@@ -77,16 +67,13 @@ function addDeviseRow(devise){
 	var newCell1 = newRow.insertCell(0);
 	//************ A FAIRE EN TP:
 	//enregistrer un déclenchement en différé des 2 lignes d'instructions
-	//suivante lors d'un futur événement "click" sur l'élément newRow:
-	newRow.addEventListener("click", function(evt){
-			selectionnerDeviseExistante(devise.code);
-			mettreEnValeurLigneSelectionnee(newRow);
-	     });	
+	//suivantes lors d'un futur événement "click" sur l'élément newRow:   
+			//selectionnerDeviseExistante(devise.code);
+			//mettreEnValeurLigneSelectionnee(newRow);
 	//*************************************
 	newCell1.innerHTML = devise.code;
 	newRow.insertCell(1).innerHTML = devise.nom;
-	//newRow.insertCell(2).innerHTML = devise.change;
-	newRow.insertCell(2).innerHTML = devise.changeAvecSuffixe();
+	newRow.insertCell(2).innerHTML = devise.change;
 }
 
 function initialiserPage(){
@@ -227,12 +214,7 @@ function deleteDevise(){
 			//l'id est "tr_"+idSelected
 			//si cette ligne existe , la supprimer vis à vis de l'élément parent
 			//de l'arbre DOM ...parentNode , .removeChild(...)
-			
-			var trASupprimer = document.querySelector("#tr_"+idSelected);
-			if(trASupprimer!=null){
-				//zoneBodyTableau.removeChild(trASupprimer);
-				trASupprimer.parentNode.removeChild(trASupprimer);
-			}
+	
 			//************************
 			reInitEmptyDevise();
 		}
@@ -252,20 +234,14 @@ function mettreEnValeurLigneSelectionnee(selectedTr){
 			//sur tr.querySelector("td") ou bien sur chaque element de tr.querySelectorAll("td")
 			//changer le style backgroundColor 
 			//à la valeur="lightblue";
-			//tr.querySelector("td").style.backgroundColor="lightblue";
-			for(let tdi of tr.querySelectorAll("td")){
-				tdi.style.backgroundColor="lightblue";
-			}
+			
 			//****************************
 		}else{
 			//********** A FAIRE EN TP:
 			//sur tr.querySelector("td") ou bien sur chaque element de tr.querySelectorAll("td")
 			//changer le style backgroundColor 
 			//à la valeur="white";
-			//tr.querySelector("td").style.backgroundColor="white";
-			for(let tdi of tr.querySelectorAll("td")){
-				tdi.style.backgroundColor="white";
-			}
+			
 			//****************************
 		}
 	}
