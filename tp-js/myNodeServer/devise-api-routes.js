@@ -1,65 +1,55 @@
 var express = require('express');
 const apiRouter = express.Router();
 
-var allDevises = [];
+var myGenericMongoClient = require('./my_generic_mongo_client');
 
-allDevises.push({ code : 'EUR' , nom : 'Euro' , change : 1.0 });
-allDevises.push({ code : 'USD' , nom : 'Dollar' , change : 1.1 });
-allDevises.push({ code : 'JPY' , nom : 'Yen' , change : 123 });
-allDevises.push({ code : 'GBP' , nom : 'Livre' , change : 0.9 }); 
-
-function findDeviseInArrayByCode(devises,code){
-	var devise=null;
-	for(i in devises){
-		if(devises[i].code == code){
-			  devise=devises[i]; break;
-		}
-	}
+function replace_mongoId_byCode(devise){
+	devise.code = devise._id;
+	delete devise._id; 
 	return devise;
 }
 
-function removeDeviseInArrayByCode(devises,code){
-	var delIndex;
-	for(i in devises){
-		if(devises[i].code == code){
-			  delIndex=i; break;
-		}
-	}
-	if(delIndex){
-		devises.splice(i,1);
-	}
+function replace_code_byMongoId(devise){
+	devise._id = devise.code;
+	delete devise.code; 
+	return devise;
 }
 
-function findDevisesWithChangeMini(devises,changeMini){
-	var selDevises=[];
-	for(i in devises){
-		if(devises[i].change >= changeMini){
-			  selDevises.push(devises[i]);
-		}
+function replace_mongoId_byCode_inArray(deviseArray){
+	for(i in deviseArray){
+		replace_mongoId_byCode(deviseArray[i]);
 	}
-	return selDevises;
+	return deviseArray;
 }
+
+
 
 //exemple URL: http://localhost:8282/devise-api/public/devise/EUR
 apiRouter.route('/devise-api/public/devise/:code')
 .get( function(req , res  , next ) {
 	var codeDevise = req.params.code;
-	var devise = findDeviseInArrayByCode(allDevises,codeDevise);
-	res.send(devise);
+	myGenericMongoClient.genericFindOne('devises',
+										{ '_id' : codeDevise },
+									    function(err,devise){
+											if(devise==null)
+											   res.status(404).send({ err : 'not found'});
+											else
+										       res.send(replace_mongoId_byCode(devise));
+									   });
+	
 });
 
 //exemple URL: http://localhost:8282/devise-api/public/devise (returning all devises)
 //             http://localhost:8282/devise-api/public/devise?changeMini=1.05
 apiRouter.route('/devise-api/public/devise')
 .get( function(req , res  , next ) {
-	var changeMini = req.query.changeMini;
-	if(changeMini){
-		res.send(findDevisesWithChangeMini(allDevises,changeMini));
-	}else{
-	   res.send(allDevises);
-	}
+	var changeMini = Number(req.query.changeMini);
+	var mongoQuery = changeMini ? { change: { $gte: changeMini }  } : { } ;
+	//console.log("mongoQuery=" + JSON.stringify(mongoQuery));
+	myGenericMongoClient.genericFindList('devises',mongoQuery,function(err,devises){
+		   res.send(replace_mongoId_byCode_inArray(devises));
+	});//end of genericFindList()
 });
-
 
 // http://localhost:8282/devise-api/private/role-admin/devise en mode post
 // avec { "code" : "mxy" , "nom" : "monnaieXy" , "change" : 123 } dans req.body
@@ -67,8 +57,17 @@ apiRouter.route('/devise-api/private/role-admin/devise')
 .post( function(req , res  , next ) {
 	var nouvelleDevise = req.body;
 	console.log("POST,nouvelleDevise="+JSON.stringify(nouvelleDevise));
-	allDevises.push(nouvelleDevise);
-	res.send(nouvelleDevise);
+	//nouvelleDevise._id=nouvelleDevise.code;
+	var nouvelleDevisePourMongoAvecId = replace_code_byMongoId(nouvelleDevise);
+	myGenericMongoClient.genericInsertOne('devises',
+	                                      nouvelleDevisePourMongoAvecId,
+									     function(err,eId){
+											 if(err==null && eId !=null)
+											   res.send(replace_mongoId_byCode(nouvelleDevise));
+											 else 
+											   res.status(500).send({err : "cannot insert in database" ,
+											                         cause : err});
+									    });
 });
 
 // http://localhost:8282/devise-api/private/role-admin/devise en mode PUT
@@ -77,15 +76,17 @@ apiRouter.route('/devise-api/private/role-admin/devise')
 .put( function(req , res  , next ) {
 	var newValueOfDeviseToUpdate = req.body;
 	console.log("PUT,newValueOfDeviseToUpdate="+JSON.stringify(newValueOfDeviseToUpdate));
-	var deviseToUpdate = findDeviseInArrayByCode(allDevises,newValueOfDeviseToUpdate.code);
-	if(deviseToUpdate!=null){
-		deviseToUpdate.nom = newValueOfDeviseToUpdate.nom;
-		deviseToUpdate.change = newValueOfDeviseToUpdate.change;
-		res.send(deviseToUpdate);
-	}else{
-		res.status(404).json({ error : "no devise to update with code=" + newValueOfDeviseToUpdate.code });
-	}
-	
+	myGenericMongoClient.genericUpdateOne('devises',
+	newValueOfDeviseToUpdate.code ,
+	{ nom : newValueOfDeviseToUpdate.nom , 
+	  change : newValueOfDeviseToUpdate.change} ,
+	function(err,devise){
+			if(err){
+				res.status(404).json({ err : "no devise to update with code=" + newValueOfDeviseToUpdate.code });
+			}else{
+					res.send(newValueOfDeviseToUpdate);
+			 }
+	});	//end of genericUpdateOne()
 });
 
 // http://localhost:8282/devise-api/private/role-admin/devise/EUR en mode DELETE
@@ -93,9 +94,13 @@ apiRouter.route('/devise-api/private/role-admin/devise/:code')
 .delete( function(req , res  , next ) {
 	var codeDevise = req.params.code;
 	console.log("DELETE,codeDevise="+codeDevise);
-	removeDeviseInArrayByCode(allDevises,codeDevise);
-	res.send({ deletedDeviseCode : codeDevise } );
+	myGenericMongoClient.genericDeleteOneById('devises', codeDevise ,
+									     function(err,isDeleted){
+											 if(!isDeleted)
+											    res.status(404).send({ err : "not found , no delete" } );
+											 else
+										        res.send({ deletedDeviseCode : codeDevise } );
+									    });
 });
-
 
 exports.apiRouter = apiRouter;
