@@ -1,0 +1,2 @@
+https://github.com/didier-mycontrib/jee-spring-app-demo/blob/master/deviseApi/src/main/java/org/mycontrib/api/WebSecurityConfig.java
++ page29 ws_rest.pdf
