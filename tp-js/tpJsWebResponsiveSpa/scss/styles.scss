@@ -91,7 +91,7 @@ thead th {
 }
 img { max-width:100%;} /* pour shrink sur images si trop grandes */
 
-.rond { transition: .3s ease-in-out;}
+.rond { transition: 0.5s ease-in-out;}
 .rond:hover { border-radius : 50% ; }
 
 .noirEtblanc { filter: grayscale(100%);  transition: .3s ease-in-out;}

@@ -19,7 +19,8 @@ function clear_canvas(){
 		//- récupérant un accès au context "2d" (variable locale "ctx")
         //- appelant la méthode ctx.clearRect (x1,y1,x2,y2 )
 		//sachant qu'il existe myCanvas.width et myCanvas.height 
-		//...
+		var ctx = myCanvas.getContext("2d");
+		ctx.clearRect (0,0,myCanvas.width , myCanvas.height );
 		//************************************************
 	}
 	
@@ -59,6 +60,7 @@ function log_coords_and_drawFig(event){
 		   //***********A FAIRE EN TP **********************
 		   //dessiner une line du point (x,y) vers le point (xC,yC)
 		    //...via ctx.moveTo(,) et ctx.lineTo(,)
+			 ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
 			//************************************************
 			break;
 		case "rect":	
@@ -66,6 +68,7 @@ function log_coords_and_drawFig(event){
 		    //dessiner un rectangle partant du point (x1,y1) 
 			//et ayant comme largeur x2-x1  et comme hauteur y2-y1
 		    //...via ctx.rect(x,y,l,h)
+			ctx.rect(x1,y1,x2-x1,y2-y1);
 			//************************************************
 			if(!empty) ctx.fill();
 			break;
