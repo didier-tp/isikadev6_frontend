@@ -3,6 +3,9 @@ const apiRouter = express.Router();
 
 var myGenericMongoClient = require('./my_generic_mongo_client');
 
+var dao = require("./devise-dao");
+var deviseDao = dao.deviseDao;
+
 function replace_mongoId_byCode(devise){
 	devise.code = devise._id;
 	delete devise._id; 
@@ -22,7 +25,31 @@ function replace_mongoId_byCode_inArray(deviseArray){
 	return deviseArray;
 }
 
+//http://localhost:8282/devise-api/public/conversion?montant=200&source=EUR&cible=USD
+apiRouter.route('/devise-api/public/conversion')
+.get( function(req , res  , next ) {
+	let codeCible = req.query.cible; //ex:"USD"
+	let codeSource = req.query.source;//ex: "EUR"
+	let montant = req.query.montant; //ex: "200"
 
+	let deviseSource = undefined;
+	let deviseCible = undefined;
+
+	deviseDao.getDeviseByCode(codeSource)
+	.then( (devSource) => { deviseSource = devSource; 
+		                     //console.log("deviseSource="+JSON.stringify(deviseSource));
+							 return deviseDao.getDeviseByCode(codeCible); } )
+	.then( (devCible) => { deviseCible = devCible;
+		                    //console.log("deviseCible="+JSON.stringify(deviseCible));
+						   let montantConverti = 
+							 montant * deviseCible.change / deviseSource.change;
+						   res.send({ montant : montant ,
+									  source : codeSource,
+									  cible : codeCible ,
+									  montantConverti : montantConverti});
+						 } )
+	.catch( (err) => { res.status(500).send({ err : 'erreur interne'}); });
+});
 
 //exemple URL: http://localhost:8282/devise-api/public/devise/EUR
 apiRouter.route('/devise-api/public/devise/:code')

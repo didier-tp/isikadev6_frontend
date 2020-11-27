@@ -1,0 +1,11 @@
+Hash: 2b9856766e5e8316a3d4
+Version: webpack 4.44.2
+Time: 130ms
+Built at: 2020-11-27 11:37:05
+           Asset      Size  Chunks             Chunk Names
+./main-bundle.js  2.94 KiB       0  [emitted]  main
+Entrypoint main = ./main-bundle.js
+[0] ./dist/out-tsc/htmlGraph.js + 2 modules 5.3 KiB {0} [built]
+    | ./dist/out-tsc/htmlGraph.js 1.17 KiB [built]
+    | ./dist/out-tsc/Serie.js 212 bytes [built]
+    | ./dist/out-tsc/MyGraph.js 3.93 KiB [built]
