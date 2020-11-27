@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DeviseObject = void 0;
 //real class for instanciation ,  with constructor .
 class DeviseObject {
     constructor(code = "?", nom = "?", change = 0) {

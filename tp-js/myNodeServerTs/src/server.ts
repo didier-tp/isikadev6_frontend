@@ -1,7 +1,7 @@
 import express  from 'express';
 import * as bodyParser from 'body-parser';
 export const  app :express.Application = express();
-//import { apiErrorHandler} from './api/apiHandler'
+import { apiErrorHandler} from './api/apiHandler'
 import { globalRouter } from './api/globalRoutes';
 import { deviseApiRouter } from './api/deviseApiRoutes';
 //import { loginApiRouter } from './api/loginApiRoutes';
@@ -41,7 +41,7 @@ app.use(deviseApiRouter);  //delegate some REST API routes
 
 //POST TRAITEMENTS (à placer en bas de server.ts):
 
-//app.use(apiErrorHandler); //pour gérer les erreurs/exceptions
+app.use(apiErrorHandler); //pour gérer les erreurs/exceptions
                           //automatiquement rattrapées .then().catch() de asyncToResp (api/apiHandler.ts)
          /*exemple : deviseApiRouter.route('/devise/:code')
                         .get(asyncToResp(async function(req :Request, res :Response , next: NextFunction){

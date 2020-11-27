@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.asyncToResp = exports.apiErrorHandler = void 0;
 const errorWithStatus_1 = require("../error/errorWithStatus");
 exports.apiErrorHandler = function (err, req, res, next) {
     //console.log("in apiErrorHandler err=", err + " " + JSON.stringify(err));

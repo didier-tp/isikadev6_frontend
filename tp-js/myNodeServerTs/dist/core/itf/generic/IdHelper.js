@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.StaticIdHelper = exports.Auto_IdHelper = exports.AutoIdHelper = void 0;
 class AbstractIdHelper {
     constructor(idPropName, auto) {
         this.idPropName = idPropName;

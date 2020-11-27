@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.server = exports.app = void 0;
 const tslib_1 = require("tslib");
 const express_1 = tslib_1.__importDefault(require("express"));
 const bodyParser = tslib_1.__importStar(require("body-parser"));
 exports.app = express_1.default();
-//import { apiErrorHandler} from './api/apiHandler'
+const apiHandler_1 = require("./api/apiHandler");
 const globalRoutes_1 = require("./api/globalRoutes");
 const deviseApiRoutes_1 = require("./api/deviseApiRoutes");
 //import { loginApiRouter } from './api/loginApiRoutes';
@@ -31,7 +32,7 @@ exports.app.use(globalRoutes_1.globalRouter); //delegate some  global express ro
 exports.app.use(deviseApiRoutes_1.deviseApiRouter); //delegate some REST API routes
 //app.use(loginApiRouter);  //delegate some REST API routes  
 //POST TRAITEMENTS (à placer en bas de server.ts):
-//app.use(apiErrorHandler); //pour gérer les erreurs/exceptions
+exports.app.use(apiHandler_1.apiErrorHandler); //pour gérer les erreurs/exceptions
 //automatiquement rattrapées .then().catch() de asyncToResp (api/apiHandler.ts)
 /*exemple : deviseApiRouter.route('/devise/:code')
                .get(asyncToResp(async function(req :Request, res :Response , next: NextFunction){
