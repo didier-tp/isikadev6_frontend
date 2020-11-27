@@ -48,7 +48,7 @@ apiRouter.route('/devise-api/public/conversion')
 									  cible : codeCible ,
 									  montantConverti : montantConverti});
 						 } )
-	.catch( (err) => { res.status(500).send({ err : 'erreur interne'}); });
+	.catch( (err) => { res.status(500).send({ error : 'erreur interne ' + err }); });
 });
 
 //exemple URL: http://localhost:8282/devise-api/public/devise/EUR
