@@ -24,7 +24,7 @@ function replace_mongoId_byCode_inArray(deviseArray){
 	}
 	return deviseArray;
 }
-
+/* V1 sans async/await
 //http://localhost:8282/devise-api/public/conversion?montant=200&source=EUR&cible=USD
 apiRouter.route('/devise-api/public/conversion')
 .get( function(req , res  , next ) {
@@ -50,6 +50,31 @@ apiRouter.route('/devise-api/public/conversion')
 						 } )
 	.catch( (err) => { res.status(500).send({ error : 'erreur interne ' + err }); });
 });
+*/
+
+//V2 avec async await
+//http://localhost:8282/devise-api/public/conversion?montant=200&source=EUR&cible=USD
+apiRouter.route('/devise-api/public/conversion')
+.get( async function(req , res  , next ) {
+	let codeCible = req.query.cible; //ex:"USD"
+	let codeSource = req.query.source;//ex: "EUR"
+	let montant = req.query.montant; //ex: "200"
+   try {
+		let deviseSource = await deviseDao.getDeviseByCode(codeSource);
+		//console.log("deviseSource="+JSON.stringify(deviseSource));
+		let deviseCible = await deviseDao.getDeviseByCode(codeCible); 
+		//console.log("deviseCible="+JSON.stringify(deviseCible));
+		let montantConverti =  montant * deviseCible.change / deviseSource.change;
+		res.send({ montant : montant ,
+				source : codeSource,
+				cible : codeCible ,
+				montantConverti : montantConverti});
+	}
+	catch(err) {
+		 res.status(500).send({ error : 'erreur interne ' + err }); 
+   }
+});
+
 
 //exemple URL: http://localhost:8282/devise-api/public/devise/EUR
 apiRouter.route('/devise-api/public/devise/:code')
