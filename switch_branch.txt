@@ -1,0 +1,12 @@
+git clone https://github.com/didier-tp/isikadev6_frontend.git
+
+pour debut TD et TP du cours 6 :
+
+git checkout obs_http
+git branch
+
+----------
+pour voir solutions du cours 6 :
+
+git checkout main
+git branch
