@@ -28,6 +28,9 @@ export class HeaderComponent implements OnInit {
   public couleurFondPrefereeLocale : string = "lightgrey";
 
   constructor(private _preferencesService : PreferencesService) {
+    
+    console.log("dans constructeur, titre="+this.titre);
+
     //synchronisation de la "copie locale":
     this._preferencesService.couleurFondPrefereeObservable
     .subscribe(
@@ -38,7 +41,9 @@ export class HeaderComponent implements OnInit {
     );
    }
 
+  //ngOnInit() est un équivalent à @PostConstruct de javaEE
   ngOnInit(): void {
+    console.log("dans ngOnInit, titre="+this.titre);
   }
 
 }
