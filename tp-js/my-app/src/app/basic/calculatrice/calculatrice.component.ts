@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalculatriceComponent implements OnInit {
 
-  a : number;
+  a : number ;
   b : number ;
   res : number;
 

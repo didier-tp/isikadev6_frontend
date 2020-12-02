@@ -9,7 +9,7 @@ import { PreferencesService } from '../common/service/preferences.service';
 export class HeaderComponent implements OnInit {
 
   @Input()
-  public titre :string ="app";
+  public titre :string = "titreParDefaut";
 
   public couleurFondPrefereeLocale : string = "lightgrey";
 
