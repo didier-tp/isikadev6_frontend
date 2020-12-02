@@ -20,6 +20,7 @@ import { ConversionComponent } from './conversion/conversion.component';
 import { MyAuthInterceptor } from './common/interceptor/my-auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AdminDeviseComponent } from './admin-devise/admin-devise.component';
+import { BsUtilModule} from '../bs-util/bs-util.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AdminDeviseComponent } from './admin-devise/admin-devise.component';
     FormsModule,
     BrowserAnimationsModule,
     TabsModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    BsUtilModule 
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
