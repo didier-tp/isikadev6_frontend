@@ -1,5 +1,5 @@
 var a = 12;  console.log("type de a="+typeof a);
-var sB = "13"; console.log("type de sB="+typeof sB);
+var sB = "13";  console.log("type de sB="+typeof sB);
 var b = Number(sB);
 var c = a+b;
 console.log("c=a+b="+c);
