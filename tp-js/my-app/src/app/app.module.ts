@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,10 +15,6 @@ import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ConversionComponent } from './conversion/conversion.component';
-import { MyAuthInterceptor } from './common/interceptor/my-auth.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AdminDeviseComponent } from './admin-devise/admin-devise.component';
 import { BsUtilModule} from '../bs-util/bs-util.module';
 
 @NgModule({
@@ -33,9 +28,7 @@ import { BsUtilModule} from '../bs-util/bs-util.module';
     XyComponent,
     ZzComponent,
     LoginComponent,
-    WelcomeComponent,
-    ConversionComponent,
-    AdminDeviseComponent
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
@@ -43,15 +36,9 @@ import { BsUtilModule} from '../bs-util/bs-util.module';
     FormsModule,
     BrowserAnimationsModule,
     TabsModule.forRoot(),
-    HttpClientModule,
     BsUtilModule 
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: MyAuthInterceptor,
-    multi: true
-    }
-],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

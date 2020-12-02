@@ -1,14 +1,5 @@
 <p>basic works!</p>
 <!--
-<tabset>
-    <tab heading="calculatrice">
-       <app-calculatrice></app-calculatrice>
-   </tab>
-   <tab heading="calcul tva">
-       <app-tva></app-tva>
-    </tab>
-</tabset>
--->
 <bsu-toggle-panel title="calculatrice">
     <app-calculatrice></app-calculatrice>
 </bsu-toggle-panel>
@@ -16,6 +7,24 @@
 <bsu-toggle-panel title="tva">
     <app-tva></app-tva>
 </bsu-toggle-panel>
+-->
 
-<app-xy></app-xy>
-<app-zz></app-zz>
+<tabset>
+    <tab heading="calculatrice">
+       <app-calculatrice></app-calculatrice>
+   </tab>
+   <tab heading="calcul tva">
+       <app-tva></app-tva>
+    </tab>
+    <tab heading="autres">
+        <bsu-toggle-panel title="carres">
+                  <app-xy></app-xy>
+        </bsu-toggle-panel>
+        <bsu-toggle-panel title="categories et produits">
+                  <app-zz></app-zz>
+        </bsu-toggle-panel>
+     </tab>
+</tabset>
+
+
+

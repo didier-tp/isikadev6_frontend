@@ -25,20 +25,8 @@ export class HeaderComponent implements OnInit {
   @Input()
   public titre :string = "titreParDefaut";
 
-  public couleurFondPrefereeLocale : string = "lightgrey";
-
-  constructor(private _preferencesService : PreferencesService) {
-    
+  constructor(public preferencesService : PreferencesService) {
     console.log("dans constructeur, titre="+this.titre);
-
-    //synchronisation de la "copie locale":
-    this._preferencesService.couleurFondPrefereeObservable
-    .subscribe(
-      //callback qui sera éventuellement re-déclenchée plusieurs fois:
-      (couleurFondPreferee)=>{
-          console.log("nouvelle couleurFondPreferee="+couleurFondPreferee)
-          this.couleurFondPrefereeLocale=couleurFondPreferee;}
-    );
    }
 
   //ngOnInit() est un équivalent à @PostConstruct de javaEE
