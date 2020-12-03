@@ -1,4 +1,6 @@
 git clone https://github.com/didier-tp/isikadev6_frontend.git
+ou bien "git pull" pour actualiser
+
 
 pour debut TD et TP du cours 6 :
 
@@ -10,3 +12,6 @@ pour voir solutions du cours 6 :
 
 git checkout main
 git branch
+
+----- 
+et (si nécessaire) "npm install" dans "tp-js/my-app"
