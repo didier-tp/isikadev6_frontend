@@ -1,4 +1,4 @@
-{"name":"Livre","change":0.82,"_id":"GBP"}
+{"name":"Euro","change":0.92,"_id":"EUR"}
 {"name":"Yen","change":132.02,"_id":"JPY"}
 {"name":"Dollar","change":1,"_id":"USD"}
 {"mame":"m6","change":1.12345,"_id":"dpgdesN8iuWNok06"}
@@ -7,4 +7,3 @@
 {"name":"Livre","change":0.82,"_id":"GBP"}
 {"name":"Yen","change":132.02,"_id":"JPY"}
 {"name":"Dollar","change":1,"_id":"USD"}
-{"$$deleted":true,"_id":"GBP"}
