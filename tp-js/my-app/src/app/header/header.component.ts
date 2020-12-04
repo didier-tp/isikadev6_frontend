@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
         { label : "login" , path : "ngr-login" } ,
         { label : "conversion" , path : "ngr-conversion" },
         { divider : true },
-        { label : "admin-devise" , path : "ngr-admin-devise" }
+        { label : "admin-devise" , path : "ngr-admin-devise" , role: "admin" }
       ]
     },
     { label : "welcome" , path : "ngr-welcome" } , 
